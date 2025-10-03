@@ -1,0 +1,93 @@
+{
+  "name": "Prashikshan - NEP 2020 Internship Platform",
+  "short_name": "Prashikshan",
+  "description": "Verified internship platform aligned with NEP 2020 — connecting students, colleges, and industries.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["education", "productivity", "business"],
+  "screenshots": [
+    {
+      "src": "/icons/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/icons/screenshot-narrow.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Student Login",
+      "short_name": "Student",
+      "description": "Login as a student",
+      "url": "/login?role=student",
+      "icons": [
+        {
+          "src": "/icons/student-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Faculty Login",
+      "short_name": "Faculty",
+      "description": "Login as faculty",
+      "url": "/login?role=faculty",
+      "icons": [
+        {
+          "src": "/icons/faculty-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Industry Login",
+      "short_name": "Industry",
+      "description": "Login as industry partner",
+      "url": "/login?role=industry",
+      "icons": [
+        {
+          "src": "/icons/industry-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

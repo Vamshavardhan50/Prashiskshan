@@ -21,10 +21,16 @@ import {
   Facebook,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../contexts/ThemeContext";
+import { useLanguage } from "../contexts/LanguageContext";
+import GlobalControls from "./GlobalControls";
 
 const Landing = () => {
-  const [isDark, setIsDark] = useState(false);
-  const [language, setLanguage] = useState("English");
+  const { isDark } = useTheme();
+  const { isRTL } = useLanguage();
+  const { t } = useTranslation();
+
   const [konamiProgress, setKonamiProgress] = useState(0);
   const [easterEggActive, setEasterEggActive] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -71,16 +77,8 @@ const Landing = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const toggleDarkMode = () => {
-    setIsDark(!isDark);
-  };
-
   return (
-    <main
-      className={`${
-        isDark ? "dark" : ""
-      } bg-green-50 dark:bg-gray-900 text-green-900 dark:text-white transition-colors duration-300 relative overflow-hidden`}
-    >
+    <main className="bg-green-50 dark:bg-gray-900 text-green-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
       {/* Smooth Scroll */}
       <style>{`
         html {
@@ -174,74 +172,15 @@ const Landing = () => {
 
             {/* Right Section - Language, Theme, Auth */}
             <div className="flex items-center space-x-4">
-              {/* Language Selector */}
-              <div className="relative group">
-                <button className="flex items-center space-x-2 bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-all backdrop-blur-sm">
-                  <Languages className="h-4 w-4" />
-                  <span className="hidden sm:inline text-sm font-medium">
-                    {language}
-                  </span>
-                  <svg
-                    className="w-4 h-4 transform group-hover:rotate-180 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
-                  <button
-                    onClick={() => setLanguage("English")}
-                    className="block w-full text-left px-4 py-3 text-gray-800 dark:text-white hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    English
-                  </button>
-                  <button
-                    onClick={() => setLanguage("हिन्दी")}
-                    className="block w-full text-left px-4 py-3 text-gray-800 dark:text-white hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    हिन्दी
-                  </button>
-                  <button
-                    onClick={() => setLanguage("తెలుగు")}
-                    className="block w-full text-left px-4 py-3 text-gray-800 dark:text-white hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    తెలుగు
-                  </button>
-                  <button
-                    onClick={() => setLanguage("اردو")}
-                    className="block w-full text-left px-4 py-3 text-gray-800 dark:text-white hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    اردو
-                  </button>
-                </div>
-              </div>
-
-              {/* Dark Mode Toggle */}
-              <button
-                onClick={toggleDarkMode}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg transform hover:rotate-180 transition-all duration-500 backdrop-blur-sm"
-                aria-label="Toggle dark mode"
-              >
-                {isDark ? (
-                  <Sun className="h-5 w-5" />
-                ) : (
-                  <Moon className="h-5 w-5" />
-                )}
-              </button>
+              {/* Global Controls (Language + Theme) */}
+              <GlobalControls className="text-white [&>div>button]:bg-white [&>div>button]:bg-opacity-20 [&>div>button]:hover:bg-opacity-30 [&>div>button]:backdrop-blur-sm" />
 
               {/* Auth Buttons */}
               <button className="hidden sm:block bg-white text-green-800 px-5 py-2 rounded-lg font-semibold hover:bg-green-50 transform hover:scale-105 transition-all shadow-md">
-                <a href="/login">Login</a>
+                <a href="/login">{t("nav.login", "Login")}</a>
               </button>
               <button className="hidden sm:block bg-green-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-500 transform hover:scale-105 transition-all shadow-md">
-                Register
+                <a href="/register">{t("nav.register", "Register")}</a>
               </button>
             </div>
           </div>
@@ -256,19 +195,22 @@ const Landing = () => {
           onMouseLeave={() => setIsHovering(false)}
         >
           <h1 className="text-5xl font-bold mb-4 transform hover:scale-105 transition-transform leading-tight">
-            Solving India's Internship Crisis
+            {t("landing.heroTitle", "Solving India's Internship Crisis")}
           </h1>
           <p className="text-xl mb-8 text-gray-700 dark:text-gray-300">
-            NEP 2020-compliant platform connecting students, colleges, and
-            verified industries - eliminating fake internships and skill gaps
-            across India.
+            {t(
+              "landing.heroDescription",
+              "NEP 2020-compliant platform connecting students, colleges, and verified industries - eliminating fake internships and skill gaps across India."
+            )}
           </p>
           <div className="flex justify-center md:justify-start space-x-4">
             <button className="bg-green-700 text-white px-8 py-4 rounded-lg hover:bg-green-800 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 font-semibold">
-              Get Started
+              <a href="#choose-role">
+                {t("landing.getStarted", "Get Started")}
+              </a>
             </button>
             <button className="bg-white text-green-700 border-2 border-green-700 px-8 py-4 rounded-lg hover:bg-green-50 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 font-semibold">
-              Learn More
+              {t("landing.learnMore", "Learn More")}
             </button>
           </div>
         </div>
@@ -315,7 +257,10 @@ const Landing = () => {
       </section>
 
       {/* Choose Your Role Section */}
-      <section className="bg-white dark:bg-gray-800 py-16 px-6">
+      <section
+        className="bg-white dark:bg-gray-800 py-16 px-6"
+        id="choose-role"
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4 transform hover:scale-105 transition-transform">
             Choose Your Role
@@ -330,7 +275,7 @@ const Landing = () => {
               title="Student"
               features={[
                 "Apply to verified, badge-rated companies",
-                "Auto-generate NEP logbooks & reports",
+                "Generate NEP logbooks & reports",
                 "Earn skill badges before internships",
               ]}
               buttonText="Student Login"
@@ -354,7 +299,7 @@ const Landing = () => {
               title="Industry"
               features={[
                 "Get Bronze/Silver/Gold verified badge",
-                "Access pre-trained, skill-ready students",
+                "Access skill-ready students",
                 "Manage interns with live dashboards",
               ]}
               buttonText="Industry Login"
@@ -658,11 +603,13 @@ const RoleCard = ({
         </li>
       ))}
     </ul>
-    <button
-      className={`bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all w-full`}
-    >
-      {buttonText}
-    </button>
+    <a href="/login">
+      <button
+        className={`bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all w-full`}
+      >
+        {buttonText}
+      </button>
+    </a>
   </div>
 );
 

@@ -46,7 +46,7 @@ const Register = () => {
       <div className="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
         <div className="flex items-center justify-center mb-6">
           <GraduationCap className="h-8 w-8 text-green-700" />
-          <h2 className="ml-2 text-2xl font-bold">Prashiskshan Registration</h2>
+          <h2 className="ml-2 text-2xl font-bold"> Registration</h2>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-4">
